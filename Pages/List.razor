@@ -1,0 +1,63 @@
+﻿@page "/list"
+
+@using Microsoft.Extensions.Logging;
+@using Estanteria.Data
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ListillaService Listilla
+@inject ILogger<Counter> logger
+
+@if (forecasts == null)
+{
+    if (!logged){
+        <p><em>You must authenticate in order to see this page.</em></p>
+    } else {
+        <p><em>Connecting with database...</em></p>
+    }
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Disponibles</th>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Name</td>
+                    <td>@forecast.Price</td>                    
+                    <td>@forecast.Stock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Maria</p>
+}
+
+@code {
+    private Product[] forecasts;
+    private bool logged;
+
+    protected override async Task OnInitializedAsync()
+    {   
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        forecasts = null;
+        logged = false;
+         if (user.Identity.IsAuthenticated)
+        {
+            logger.LogWarning("Autenticado!!");          
+            logged = true;  
+            forecasts = await Listilla.GetForecastAsync(DateTime.Now);
+        }
+        
+    }
+}
+
+
