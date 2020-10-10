@@ -50,7 +50,7 @@ else
         var user = authState.User;
         forecasts = null;
         logged = false;
-         if (user.Identity.IsAuthenticated)
+        if (user.Identity.IsAuthenticated)
         {
             logger.LogWarning("Autenticado!!");          
             logged = true;  

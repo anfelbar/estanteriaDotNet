@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Estanteria.Areas.Identity;
 using Estanteria.Data;
+using System.Net.Http;
 
 namespace Estanteria
 {
@@ -41,6 +42,10 @@ namespace Estanteria
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ListillaService>();
+            services.AddScoped<HttpClient>(s =>
+            {
+                return new HttpClient { BaseAddress = new Uri(@"https://api.exchangeratesapi.io/") };
+            });
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -1,0 +1,23 @@
+﻿@page "/userlist"
+@using System.Net.Http
+@inject HttpClient Http
+
+<h1>UserList</h1>
+<h3>@response</h3>
+<button @onclick=@PrintWebApiResponse>Print Web API Response</button>
+
+@functions {
+
+    private string response { get; set; }
+    private async Task PrintWebApiResponse()
+    {
+        response = await Http.GetStringAsync("latest");
+        Console.WriteLine(response);
+    }
+
+    /*protected override async Task OnInitializedAsync()
+    {
+        response = await Http.GetStringAsync("latest");
+        Console.WriteLine("Jum");
+    }*/
+}
