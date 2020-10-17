@@ -4,20 +4,20 @@
 
 <h1>UserList</h1>
 <h3>@response</h3>
-<button @onclick=@PrintWebApiResponse>Print Web API Response</button>
+@* <button @onclick=@PrintWebApiResponse>Print Web API Response</button> *@
 
 @functions {
 
     private string response { get; set; }
-    private async Task PrintWebApiResponse()
+    /*private async Task PrintWebApiResponse()
     {
         response = await Http.GetStringAsync("latest");
         Console.WriteLine(response);
-    }
+    }*/
 
-    /*protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         response = await Http.GetStringAsync("latest");
         Console.WriteLine("Jum");
-    }*/
+    }
 }

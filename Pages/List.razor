@@ -6,6 +6,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ListillaService Listilla
 @inject ILogger<Counter> logger
+@inject Estanteria.Data.ApplicationDbContext _context
 
 @if (forecasts == null)
 {
@@ -36,8 +37,6 @@ else
             }
         </tbody>
     </table>
-
-    <p>Maria</p>
 }
 
 @code {
@@ -50,11 +49,24 @@ else
         var user = authState.User;
         forecasts = null;
         logged = false;
+
         if (user.Identity.IsAuthenticated)
         {
-            logger.LogWarning("Autenticado!!");          
+            // logger.LogWarning("Autenticado!!");          
             logged = true;  
-            forecasts = await Listilla.GetForecastAsync(DateTime.Now);
+            //forecasts = await Listilla.GetForecastAsync(DateTime.Now);
+             try
+            {              
+                forecasts = _context.Products.ToArray();
+                foreach (Product i in forecasts)
+                {
+                    Console.WriteLine("Pdocusto: " + i.Name);
+                }
+            }
+            catch
+            {
+                base.StateHasChanged();
+            }
         }
         
     }
