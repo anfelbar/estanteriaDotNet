@@ -4,3 +4,35 @@ A Blazor (dotnet) server application to handle stocks in a a given organization.
 The idead is as follows...
 
 <SurveyPrompt Title="Do you have any questions?" />
+
+@code {
+    public class GdpDataSource
+    {
+        public static List<object> GetCountryGdp()
+        {
+            return new List<object> {
+                new
+{
+year = "2014",
+US = 17348075,
+China = 10356508,
+
+},
+                new
+{
+year = "2015",
+US = 18036650,
+China =11181556,
+
+},
+                new
+{
+year = "2016",
+US = 18624450,
+China = 11232110,
+
+}
+            };
+        }
+    }
+}

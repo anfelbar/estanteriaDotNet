@@ -7,12 +7,15 @@
 @inject ListillaService Listilla
 @inject ILogger<Counter> logger
 @inject Estanteria.Data.ApplicationDbContext _context
-
+ 
 @if (forecasts == null)
 {
-    if (!logged){
+    if (!logged)
+    {
         <p><em>You must authenticate in order to see this page.</em></p>
-    } else {
+    }
+    else
+    {
         <p><em>Connecting with database...</em></p>
     }
 }
@@ -23,7 +26,7 @@ else
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
-                <th>Disponibles</th>                
+                <th>Disponibles</th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +34,7 @@ else
             {
                 <tr>
                     <td>@forecast.Name</td>
-                    <td>@forecast.Price</td>                    
+                    <td>@forecast.Price</td>
                     <td>@forecast.Stock</td>
                 </tr>
             }
@@ -44,19 +47,20 @@ else
     private bool logged;
 
     protected override async Task OnInitializedAsync()
-    {   
+    {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         forecasts = null;
         logged = false;
 
+        // Console.WriteLine("role? "+user.ToString());
         if (user.Identity.IsAuthenticated)
         {
-            // logger.LogWarning("Autenticado!!");          
-            logged = true;  
+            // logger.LogWarning("Autenticado!!");
+            logged = true;
             //forecasts = await Listilla.GetForecastAsync(DateTime.Now);
-             try
-            {              
+            try
+            {
                 forecasts = _context.Products.ToArray();
                 foreach (Product i in forecasts)
                 {
@@ -68,8 +72,6 @@ else
                 base.StateHasChanged();
             }
         }
-        
+
     }
 }
-
-

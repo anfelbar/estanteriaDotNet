@@ -2,13 +2,26 @@
 @using System.Net.Http
 @inject HttpClient Http
 
-<h1>UserList</h1>
-<h3>@response</h3>
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@if (!logged)
+    {
+        <p><em>You must authenticate in order to see this page.</em></p>
+    }
+    else
+    {
+        <h1>UserList</h1>
+        <h3>@response</h3>
+    }
+
 @* <button @onclick=@PrintWebApiResponse>Print Web API Response</button> *@
 
 @functions {
 
     private string response { get; set; }
+
+    private bool logged { get; set; }
     /*private async Task PrintWebApiResponse()
     {
         response = await Http.GetStringAsync("latest");
@@ -17,7 +30,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        response = await Http.GetStringAsync("latest");
-        Console.WriteLine("Jum");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        logged = false;
+
+        // Console.WriteLine("role? "+user.ToString());
+        if (user.Identity.IsAuthenticated)
+        {
+            logged = true;
+            response = await Http.GetStringAsync("latest");
+            Console.WriteLine("Jum");
+        } 
     }
 }
