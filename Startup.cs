@@ -40,7 +40,6 @@ namespace Estanteria
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ListillaService>();
             services.AddScoped<HttpClient>(s =>
             {

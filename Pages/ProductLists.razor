@@ -54,7 +54,7 @@ else
         logged = false;
 
         // Console.WriteLine("role? "+user.ToString());
-        if (user.Identity.IsAuthenticated)
+        // if (user.Identity.IsAuthenticated)
         {
             // logger.LogWarning("Autenticado!!");
             logged = true;
@@ -62,10 +62,10 @@ else
             try
             {
                 forecasts = _context.Products.ToArray();
-                foreach (Product i in forecasts)
+                /* foreach (Product i in forecasts)
                 {
                     Console.WriteLine("Pdocusto: " + i.Name);
-                }
+                } */
             }
             catch
             {
