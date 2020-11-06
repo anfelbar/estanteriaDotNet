@@ -4,6 +4,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject Estanteria.Data.ApplicationDbContext _context
 
+@attribute [Authorize(Roles = "Admin")]
 
 @if (logged){
     <h2>New product form</h2>
