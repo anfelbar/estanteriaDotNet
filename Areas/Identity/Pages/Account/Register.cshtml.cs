@@ -88,8 +88,16 @@ namespace Estanteria.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
+                    await _userManager.AddToRoleAsync(user, "User");
+                    if (user.Email.StartsWith("anfelbar"))
+                    {
+                        Console.WriteLine("Yes, user is anfelbar, adding to Admin");
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                     Console.WriteLine("Pasamos if");
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -104,7 +112,7 @@ namespace Estanteria.Areas.Identity.Pages.Account
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
-                }
+                }                
             }
 
             // If we got this far, something failed, redisplay form
