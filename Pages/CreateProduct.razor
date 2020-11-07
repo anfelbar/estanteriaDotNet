@@ -6,45 +6,46 @@
 
 @attribute [Authorize(Roles = "Admin")]
 
-@if (logged){
-    <h2>New product form</h2>
-<EditForm Model="@editContext" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+@if (logged)
+{
+    <h2>Nuevo producto</h2>
+    <EditForm Model="@editContext" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <p>
-        <label>
-            Name:
-            <InputText @bind-Value="product.Name" />
-        </label>
-    </p>
-    <p>
-        <label>
-            Price:
-            <InputNumber @bind-Value="product.Price" />
-        </label>
-    </p>
-    @* <p>
-        <label>
-        Primary Classification:
-        <InputSelect @bind-Value="starship.Classification">
-        <option value="">Select classification ...</option>
-        <option value="Exploration">Exploration</option>
-        <option value="Diplomacy">Diplomacy</option>
-        <option value="Defense">Defense</option>
-        </InputSelect>
-        </label>
-        </p> *@
-    <p>
-        <label>
-            How many in stock:
-            <InputNumber @bind-Value="product.Stock" />
-        </label>
-    </p>
+        <p>
+            <label>
+                Name:
+                <InputText @bind-Value="product.Name" />
+            </label>
+        </p>
+        <p>
+            <label>
+                Price:
+                <InputNumber @bind-Value="product.Price" />
+            </label>
+        </p>
+        @* <p>
+            <label>
+            Primary Classification:
+            <InputSelect @bind-Value="starship.Classification">
+            <option value="">Select classification ...</option>
+            <option value="Exploration">Exploration</option>
+            <option value="Diplomacy">Diplomacy</option>
+            <option value="Defense">Defense</option>
+            </InputSelect>
+            </label>
+            </p> *@
+        <p>
+            <label>
+                How many in stock:
+                <InputNumber @bind-Value="product.Stock" />
+            </label>
+        </p>
 
-    <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
 
-</EditForm>
+    </EditForm>
 }
 else {
     <p><em>You must authenticate in order to see this page.</em></p>
@@ -57,13 +58,13 @@ else {
     private bool logged;
 
     protected override async void OnInitialized()
-    {   
+    {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         logged = false;
 
-        
-            
+
+
         if (user.Identity.IsAuthenticated)
         {
             logged = true;
@@ -72,23 +73,23 @@ else {
     }
     private async void HandleValidSubmit()
     {
-        
-            try
-            {
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-                /*var data = _context.Products.ToList();
-                foreach (Product i in data)
-                {
-                    Console.WriteLine("Pdocusto: " + i.Name);
-                }*/
-            }
-            catch
-            {
-                base.StateHasChanged();
-            }
 
-        
+        try
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+            /*var data = _context.Products.ToList();
+            foreach (Product i in data)
+            {
+            Console.WriteLine("Pdocusto: " + i.Name);
+            }*/
+        }
+        catch
+        {
+            base.StateHasChanged();
+        }
+
+
         //var isValid = editContext.Validate();
         // List<Product> prods = new List<Product>();
 
