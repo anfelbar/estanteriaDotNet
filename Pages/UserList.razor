@@ -34,7 +34,7 @@
         var user = authState.User;
         logged = false;
 
-        // Console.WriteLine("role? "+user.ToString());
+        // Console.WriteLine("user? "+user.Identity.Name);
         if (user.Identity.IsAuthenticated)
         {
             logged = true;

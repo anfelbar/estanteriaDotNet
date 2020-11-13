@@ -28,6 +28,8 @@
         var user = authState.User;        
         logged = false;
 
+        Console.WriteLine("user? "+user.Identity.Name);
+        Console.WriteLine("user? "+user.Identity.GetType().GUID);
         if (user.Identity.IsAuthenticated)
         {
             logged = true;
