@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Estanteria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201116031928_SeedRoles")]
+    [Migration("20201116044229_SeedRoles")]
     partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("Estanteria.Data.Product", b =>
                 {
@@ -26,8 +26,8 @@ namespace Estanteria.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(16);
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
@@ -50,33 +50,33 @@ namespace Estanteria.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
                         new
                         {
-                            Id = "ef97190f-c89e-4f8c-b221-fc8e132bcc5c",
-                            ConcurrencyStamp = "43910ad1-3063-4ea8-b73f-59b9c99e0ad8",
+                            Id = "1b9abbc4-6a7e-47d9-bfc0-59a02c64ea49",
+                            ConcurrencyStamp = "f3ffbc8b-7e78-4786-83ae-c7158bdd394e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cc8d0a41-f8cf-4518-a730-f9ebdbaaf91d",
-                            ConcurrencyStamp = "3ef9ccf9-bf39-423f-9cd7-d111e8f6b888",
+                            Id = "037c3f11-9eac-4260-9c19-422215634cd5",
+                            ConcurrencyStamp = "77ef8b86-817c-4ccd-8cc3-c4f5ab9b6cc6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -118,8 +118,8 @@ namespace Estanteria.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
@@ -131,12 +131,12 @@ namespace Estanteria.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
@@ -154,17 +154,17 @@ namespace Estanteria.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -195,12 +195,12 @@ namespace Estanteria.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("TEXT");
@@ -237,12 +237,12 @@ namespace Estanteria.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
                         .HasColumnType("TEXT");
