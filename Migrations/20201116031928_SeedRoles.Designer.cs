@@ -3,14 +3,16 @@ using System;
 using Estanteria.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Estanteria.Data.Migrations
+namespace Estanteria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201116031928_SeedRoles")]
+    partial class SeedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,15 +68,15 @@ namespace Estanteria.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1c2cc76b-249f-4628-9033-64296ccef14f",
-                            ConcurrencyStamp = "151b3a0d-fa99-4891-9591-dfa03897455b",
+                            Id = "ef97190f-c89e-4f8c-b221-fc8e132bcc5c",
+                            ConcurrencyStamp = "43910ad1-3063-4ea8-b73f-59b9c99e0ad8",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8e23845e-5195-4e0d-a37f-aeb018f1f46f",
-                            ConcurrencyStamp = "99c2eedf-89c5-4230-a137-9badf76c7a7f",
+                            Id = "cc8d0a41-f8cf-4518-a730-f9ebdbaaf91d",
+                            ConcurrencyStamp = "3ef9ccf9-bf39-423f-9cd7-d111e8f6b888",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

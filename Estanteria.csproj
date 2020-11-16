@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorGoogleMaps" Version="0.9.0" />
+    <PackageReference Include="BlazorMedia" Version="0.3.0.12" />
     <PackageReference Include="ChartJs.Blazor" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />

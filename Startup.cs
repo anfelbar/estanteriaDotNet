@@ -45,6 +45,11 @@ namespace Estanteria
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<ListillaService>();
+            services.AddSignalR(e =>
+            {
+                e.MaximumReceiveMessageSize = 102400000;
+            });
+            // services.AddSingleton<IndexViewModel>();
             services.AddScoped<HttpClient>(s =>
             {
                 return new HttpClient { BaseAddress = new Uri(@"https://api.exchangeratesapi.io/") };
