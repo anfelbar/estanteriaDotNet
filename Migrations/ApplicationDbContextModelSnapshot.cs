@@ -30,6 +30,9 @@ namespace Estanteria.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ProductPicture")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
 
@@ -66,15 +69,15 @@ namespace Estanteria.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b9abbc4-6a7e-47d9-bfc0-59a02c64ea49",
-                            ConcurrencyStamp = "f3ffbc8b-7e78-4786-83ae-c7158bdd394e",
+                            Id = "d772d075-2283-4662-8992-eeeede4fa063",
+                            ConcurrencyStamp = "1c3d3fc8-923c-49e2-b230-3ca56cc359ba",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "037c3f11-9eac-4260-9c19-422215634cd5",
-                            ConcurrencyStamp = "77ef8b86-817c-4ccd-8cc3-c4f5ab9b6cc6",
+                            Id = "0c3e5113-c256-44d6-9424-1f39313c4e39",
+                            ConcurrencyStamp = "5d40c1bf-8391-4b5b-a71f-72a51fb227c3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

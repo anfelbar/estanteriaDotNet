@@ -1,9 +1,10 @@
 using System;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Estanteria.Data
 {
-    public class Product
+    public class ProductVM
     {
         public int Id { get; set; }
 
@@ -17,7 +18,8 @@ namespace Estanteria.Data
         [Range(0, Int32.MaxValue, ErrorMessage = "Stock is always positive.")]
         public int Stock { get; set; }
 
-        //[Required(ErrorMessage = "Please choose a product image")]  
-        public string ProductPicture { get; set; } 
+        //[Required(ErrorMessage = "Please choose product image")]  
+        [Display(Name = "Product Picture")]  
+        public IFormFile ProfileImage { get; set; } 
     }
 }

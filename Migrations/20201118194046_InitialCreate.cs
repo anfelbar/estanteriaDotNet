@@ -54,7 +54,8 @@ namespace Estanteria.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
-                    Stock = table.Column<int>(type: "INTEGER", nullable: false)
+                    Stock = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductPicture = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -170,12 +171,12 @@ namespace Estanteria.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b0411721-5a2d-4925-a64a-0b05ff0f447e", "7d3bc292-86f0-494a-a023-bc02810afb35", "User", "USER" });
+                values: new object[] { "61171dc2-8172-4761-a8a3-bd0601ff996b", "71e68032-fc28-47e9-a69f-d46b374cdc11", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "09f9fc09-acf5-4488-b473-2d953f68fff2", "ea227d82-75f0-4b17-aa28-1feb9387509d", "Admin", "ADMIN" });
+                values: new object[] { "6d6b6411-ea45-484e-8dba-ef927c81c8c1", "13708a30-f6f5-405b-a6a3-6e19285f28d9", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

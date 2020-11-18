@@ -3,12 +3,18 @@
 @using Microsoft.Extensions.Logging;
 @using Estanteria.Data
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Hosting
+@using System;  
+@using System.IO;  
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ListillaService Listilla
 @inject ILogger<Counter> logger
 @inject Estanteria.Data.ApplicationDbContext _context
+
+@inject IWebHostEnvironment Environment
  
-@if (forecasts == null)
+@if (productos == null)
 {
     if (!logged)
     {
@@ -27,15 +33,21 @@ else
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Disponibles</th>
+                <th>Imagen</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
-            {
+            @foreach (var p in productos)
+            {               
                 <tr>
-                    <td>@forecast.Name</td>
-                    <td>@forecast.Price</td>
-                    <td>@forecast.Stock</td>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Stock</td>  
+                    @if(fullPath(p.ProductPicture)!=null){
+                        <td><img class="rounded m-1" src="@fullPath(p.ProductPicture)" /></td>
+                    } else {
+                        <td></td>
+                    }               
                 </tr>
             }
         </tbody>
@@ -43,14 +55,14 @@ else
 }
 
 @code {
-    private Product[] forecasts;
+    private Product[] productos;
     private bool logged;
 
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-        forecasts = null;
+        productos = null;
         logged = false;
 
         // Console.WriteLine("role? "+user.ToString());
@@ -61,11 +73,12 @@ else
             //forecasts = await Listilla.GetForecastAsync(DateTime.Now);
             try
             {
-                forecasts = _context.Products.ToArray();
-                /* foreach (Product i in forecasts)
+                productos = _context.Products.ToArray();
+                foreach (Product i in productos)
                 {
-                    Console.WriteLine("Pdocusto: " + i.Name);
-                } */
+                    Console.WriteLine("Pdocusto: " + i.Name + ", "+i.Price+", "+i.Stock+", "+fullPath(i.ProductPicture));
+                    
+                }
             }
             catch
             {
@@ -73,5 +86,13 @@ else
             }
         }
 
+    }
+
+    protected string fullPath(string filename){
+        Console.WriteLine("Fullpath con entrada: "+filename);
+        if (filename==null)
+            return null;
+        string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");
+        return Path.Combine(uploadsFolder, filename); 
     }
 }

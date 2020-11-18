@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Estanteria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201116044221_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201118200127_SeedRoles")]
+    partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace Estanteria.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductPicture")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
@@ -68,15 +71,15 @@ namespace Estanteria.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b0411721-5a2d-4925-a64a-0b05ff0f447e",
-                            ConcurrencyStamp = "7d3bc292-86f0-494a-a023-bc02810afb35",
+                            Id = "d772d075-2283-4662-8992-eeeede4fa063",
+                            ConcurrencyStamp = "1c3d3fc8-923c-49e2-b230-3ca56cc359ba",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "09f9fc09-acf5-4488-b473-2d953f68fff2",
-                            ConcurrencyStamp = "ea227d82-75f0-4b17-aa28-1feb9387509d",
+                            Id = "0c3e5113-c256-44d6-9424-1f39313c4e39",
+                            ConcurrencyStamp = "5d40c1bf-8391-4b5b-a71f-72a51fb227c3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
