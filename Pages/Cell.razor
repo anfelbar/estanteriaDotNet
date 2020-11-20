@@ -1,6 +1,8 @@
 @using System;
+@using Estanteria.Data
 @inject Estanteria.Data.ApplicationDbContext _context
 @inject NavigationManager NavManager
+@inject StateManagement states
 
 <div class="caja">
     
@@ -9,6 +11,7 @@
         <td><img class="rounded m-1" src="@Picture" /></td>
     }
     <button class="btn btn-primary" @onclick="deleteProduct">Eliminar</button>
+    <button class="btn btn-primary" @onclick="buyProduct">Comprar</button>
 </div>
 
 @code {
@@ -32,6 +35,17 @@
         this.StateHasChanged();
         NavManager.NavigateTo("/list", true);
                 //return NoContent();
+    }
+
+    protected void buyProduct(){
+        Console.WriteLine("Idd "+Idd);
+        Product p = new Product();
+        p.Id = Idd;
+        p.Name = Name;
+        p.Price = Price;
+        p.ProductPicture = Picture;
+        p.Stock = Stock;
+        states.AddProduct(p);
     }
 
 }

@@ -1,15 +1,24 @@
 @page "/shoplist"
 @using Estanteria.Data
+@using System.IO
 @inject StateManagement states
 @implements IDisposable
 
 <h1>Component 1</h1>
 
 <p>Component 1 Property: <b>@states.Property</b></p>
+@if (states.ProductIds.Count == 0){
+    <p>No hay productos en el carrito</p>
+} else {
+<p>Products: </p>
+@foreach (Product item in states.ProductIds)
+{
+    <Cell Name=@item.Name Price=@item.Price 
+                              Stock=@item.Stock Picture=@item.ProductPicture 
+                              Idd=@item.Id />
+}
 
-<p>
-    <button @onclick="ChangePropertyValue">Change Property from Component 1</button>
-</p>
+}
 
 
 @code {
@@ -26,5 +35,15 @@
     public void Dispose()
     {
         states.OnChange -= StateHasChanged;
+    }
+
+    protected string fullPath(string filename){
+        Console.WriteLine("Fullpath con entrada: "+filename);
+        if (filename==null)
+            return null;
+        //string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");
+        string uploadsFolder = "https://localhost:5001/images/";
+        return Path.Combine(uploadsFolder, filename); 
+        //return Path.Combine("file:///", Path.Combine(uploadsFolder, filename)) ;
     }
 }
