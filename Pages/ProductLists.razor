@@ -27,37 +27,38 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Disponibles</th>
-                <th>Imagen</th>
-            </tr>
-        </thead>
+    <table class="table table-bordered">
         <tbody>
-            @foreach (var p in productos)
-            {               
-                <tr>
-                    <td>@p.Name</td>
-                    <td>@p.Price</td>
-                    <td>@p.Stock</td>  
-                    @if(fullPath(p.ProductPicture)!=null){
-                        <td><img class="rounded m-1" src="@fullPath(p.ProductPicture)" /></td>
-                    } else {
-                        <td></td>
-                    }               
-                </tr>
+    @for (int i = 0; i < @rows; i++)
+    {
+        <tr>
+            @for(int j=0; j < @cols; j++){
+                @if (element < productos.Length){
+                    <td>
+                        <Cell Name=@productos[@element].Name Price=@productos[@element].Price 
+                              Stock=@productos[@element].Stock Picture=@fullPath(productos[@element].ProductPicture) />
+                    </td>
+                    increment();
+                }            
             }
+        </tr>
+    }
         </tbody>
     </table>
+
+    
 }
 
 @code {
     private Product[] productos;
     private bool logged;
+    int cols = 4;
+    int rows = 0;
+    int element = 0;
 
+    void increment (){
+        element++;
+    }
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -74,11 +75,13 @@ else
             try
             {
                 productos = _context.Products.ToArray();
-                foreach (Product i in productos)
+                rows = (int)productos.Length/4;
+                Console.WriteLine("Número de filas es "+rows);
+                /*foreach (Product i in productos)
                 {
                     Console.WriteLine("Pdocusto: " + i.Name + ", "+i.Price+", "+i.Stock+", "+fullPath(i.ProductPicture));
                     
-                }
+                }*/
             }
             catch
             {
@@ -89,10 +92,12 @@ else
     }
 
     protected string fullPath(string filename){
-        Console.WriteLine("Fullpath con entrada: "+filename);
+        // Console.WriteLine("Fullpath con entrada: "+filename);
         if (filename==null)
             return null;
-        string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");
+        //string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");
+        string uploadsFolder = "https://localhost:5001/images/";
         return Path.Combine(uploadsFolder, filename); 
+        //return Path.Combine("file:///", Path.Combine(uploadsFolder, filename)) ;
     }
 }

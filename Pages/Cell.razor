@@ -1,0 +1,20 @@
+<div class="caja">
+    
+    <strong>@Name</strong>    <strong>@Price</strong>     <strong>@Stock</strong> <br />
+    @if(Picture !=null){
+        <td><img class="rounded m-1" src="@Picture" /></td>
+    }
+    
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public int Price { get; set; }
+    [Parameter]
+    public int Stock { get; set; }
+    [Parameter]
+    public string Picture { get; set; }
+}

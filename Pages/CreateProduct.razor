@@ -17,7 +17,7 @@
 @if (logged)
 {
     <h2>Nuevo producto</h2>
-    <EditForm Model="@product" OnValidSubmit="@HandleValidSubmit">
+    <EditForm Model="@editContext" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -55,6 +55,8 @@
                 Product picture:
                 <InputFile OnChange="@OnInputFileChange" />
             </label>
+            <br />
+            @picFormat
         </p>
         
         <button type="submit">Submit</button>
@@ -79,21 +81,21 @@ else {
 }
 
 @code {
-    //private ProductVM productVM = new ProductVM();
+    // private ProductVM productVM = new ProductVM();
     private Product product = new Product();
     private EditContext editContext;
     private bool logged;
     IList<string> imageDataUrls = new List<string>();
-    private string uniqueFileName = null;
     private string filePath = null;
     private Stream ss = null;
+    private string picFormat = "";
     protected override async void OnInitialized()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         logged = false;
 
-        if (user.Identity.IsAuthenticated)
+        // if (user.Identity.IsAuthenticated)
         {
             logged = true;
         }
@@ -105,19 +107,20 @@ else {
         Product producto;
         try
         {
-            Console.Write("Creando: "+uniqueFileName+" ");
-            if (uniqueFileName != null && ss != null){
+            // Console.Write("Creando: "+uniqueFileName+" ");
+            if (ss != null){
                 producto = new Product  
                 {  
                     Name = product.Name,  
                     Price = product.Price,
                     Stock = product.Stock,
-                    ProductPicture = uniqueFileName,  
+                    ProductPicture = product.ProductPicture,  
                 };
                 product = new Product();
                 using (var fileStream = new FileStream(filePath, FileMode.Create))  
                 {  
-                    await ss.CopyToAsync(fileStream);  
+                    await ss.CopyToAsync(fileStream);
+                    ss = null;  
                 }
             }
             else {
@@ -130,7 +133,7 @@ else {
             }
             _context.Products.Add(producto);
             await _context.SaveChangesAsync();
-
+            product = new Product();
             
         }
         catch
@@ -143,15 +146,28 @@ else {
 
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
-    {
-        var imageFile = e.File;        
-        ss =  imageFile.OpenReadStream();
-        string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");
-        // Console.WriteLine("uploadsFolder: "+uploadsFolder);  
-        uniqueFileName = Guid.NewGuid().ToString()+ "_" + imageFile.Name;  
-        filePath = Path.Combine(uploadsFolder, uniqueFileName); 
-        Console.WriteLine("filePath: "+filePath);
-        product.ProductPicture = uniqueFileName;
+    {        
+        var imageFile = e.File;
+        string extension = System.IO.Path.GetExtension(imageFile.Name);      
+        string [] acceptedFormats = {".jpg", ".png", ".jpeg"};
+        
+        if (acceptedFormats.Contains(extension)){
+            Console.WriteLine("Sí exta!! "+"image/"+extension.Remove(0,1));
+            int size = imageFile.Name.Length;
+            // ss =  imageFile.OpenReadStream();    
+            // resize de la imagen original
+            var resizedImageFile = await imageFile.RequestImageFileAsync("image/"+extension.Remove(0,1), 300, 300);
+            ss = resizedImageFile.OpenReadStream();
+            string uploadsFolder = Path.Combine(Environment.WebRootPath, "images");            
+            string uniqueFileName = Guid.NewGuid().ToString()+ "_" + imageFile.Name;  
+            filePath = Path.Combine(uploadsFolder, uniqueFileName); 
+            // Console.WriteLine("filePath: "+filePath);
+            product.ProductPicture = uniqueFileName;
+            picFormat = "";
+        } else {
+            picFormat = "Formato invalido. Use jpg, png o no ponga ninguna imagen.";
+        }
+        
         //productVM.ProfileImage = await imageFile.RequestImageFileAsync();          
 
         // var maxAllowedFiles = 3;

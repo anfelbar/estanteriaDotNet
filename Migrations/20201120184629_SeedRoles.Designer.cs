@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Estanteria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118200127_SeedRoles")]
+    [Migration("20201120184629_SeedRoles")]
     partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,15 +71,15 @@ namespace Estanteria.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d772d075-2283-4662-8992-eeeede4fa063",
-                            ConcurrencyStamp = "1c3d3fc8-923c-49e2-b230-3ca56cc359ba",
+                            Id = "194f8357-f9ce-468c-94da-aefbc0d440b9",
+                            ConcurrencyStamp = "2000c684-6a1a-4ba8-9904-5e20a85535ba",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0c3e5113-c256-44d6-9424-1f39313c4e39",
-                            ConcurrencyStamp = "5d40c1bf-8391-4b5b-a71f-72a51fb227c3",
+                            Id = "543f5d51-8dc4-4751-8012-50dc6805c582",
+                            ConcurrencyStamp = "a42f2838-ab55-4b1f-b728-4ef41907df6d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

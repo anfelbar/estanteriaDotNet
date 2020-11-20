@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Estanteria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118194046_InitialCreate")]
+    [Migration("20201120184617_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,15 +71,15 @@ namespace Estanteria.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61171dc2-8172-4761-a8a3-bd0601ff996b",
-                            ConcurrencyStamp = "71e68032-fc28-47e9-a69f-d46b374cdc11",
+                            Id = "73e6b8b6-3e73-464a-872f-7c61c9bbf301",
+                            ConcurrencyStamp = "8dd97a0a-3e00-4bdb-b440-28f272a76dba",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "6d6b6411-ea45-484e-8dba-ef927c81c8c1",
-                            ConcurrencyStamp = "13708a30-f6f5-405b-a6a3-6e19285f28d9",
+                            Id = "61312af6-afc7-4229-a524-957c39ba3753",
+                            ConcurrencyStamp = "0714b820-137d-4631-bfce-817934555cfd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
