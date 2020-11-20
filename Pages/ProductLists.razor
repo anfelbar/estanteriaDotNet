@@ -29,14 +29,16 @@ else
 {
     <table class="table table-bordered">
         <tbody>
-    @for (int i = 0; i < @rows; i++)
+    @for (int i = 0; i <= @rows; i++)
     {
         <tr>
             @for(int j=0; j < @cols; j++){
                 @if (element < productos.Length){
                     <td>
                         <Cell Name=@productos[@element].Name Price=@productos[@element].Price 
-                              Stock=@productos[@element].Stock Picture=@fullPath(productos[@element].ProductPicture) />
+                              Stock=@productos[@element].Stock Picture=@fullPath(productos[@element].ProductPicture) 
+                              Idd=@productos[@element].Id />
+                        
                     </td>
                     increment();
                 }            
@@ -100,4 +102,12 @@ else
         return Path.Combine(uploadsFolder, filename); 
         //return Path.Combine("file:///", Path.Combine(uploadsFolder, filename)) ;
     }
+
+    protected async void deleteProduct(){
+        var produ = new Product { Id = 2 };
+        _context.Remove(produ);
+        var res = await _context.SaveChangesAsync();
+                //return NoContent();
+    }
+    
 }

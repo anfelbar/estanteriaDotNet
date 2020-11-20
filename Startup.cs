@@ -58,6 +58,7 @@ namespace Estanteria
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<ListillaService>();
+            services.AddSingleton<StateManagement>();
             services.AddSignalR(e =>
             {
                 e.MaximumReceiveMessageSize = 102400000;

@@ -1,0 +1,30 @@
+@page "/shoplist"
+@using Estanteria.Data
+@inject StateManagement states
+@implements IDisposable
+
+<h1>Component 1</h1>
+
+<p>Component 1 Property: <b>@states.Property</b></p>
+
+<p>
+    <button @onclick="ChangePropertyValue">Change Property from Component 1</button>
+</p>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        states.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        states.SetProperty($"New value set in Component 1 {DateTime.Now}");
+    }
+
+    public void Dispose()
+    {
+        states.OnChange -= StateHasChanged;
+    }
+}

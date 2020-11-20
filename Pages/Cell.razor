@@ -1,14 +1,20 @@
+@using System;
+@inject Estanteria.Data.ApplicationDbContext _context
+@inject NavigationManager NavManager
+
 <div class="caja">
     
-    <strong>@Name</strong>    <strong>@Price</strong>     <strong>@Stock</strong> <br />
+    <strong>@Name</strong>    <strong>@Price</strong>     <strong>@Stock</strong> @Idd<br />
     @if(Picture !=null){
         <td><img class="rounded m-1" src="@Picture" /></td>
     }
-    
+    <button class="btn btn-primary" @onclick="deleteProduct">Eliminar</button>
 </div>
 
 @code {
     // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public int Idd { get; set; }
     [Parameter]
     public string Name { get; set; }
     [Parameter]
@@ -17,4 +23,15 @@
     public int Stock { get; set; }
     [Parameter]
     public string Picture { get; set; }
+
+    protected async void deleteProduct(){
+        // var produ = new Product { Id = Idd };
+        var produ = _context.Products.Find(Idd);
+        _context.Remove(produ);
+        var res = await _context.SaveChangesAsync();
+        this.StateHasChanged();
+        NavManager.NavigateTo("/list", true);
+                //return NoContent();
+    }
+
 }
